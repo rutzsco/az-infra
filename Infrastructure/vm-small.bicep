@@ -4,7 +4,7 @@ param subnetId string
 param ubuntuOsVersion string = '18.04-LTS'
 param osDiskType string = 'Standard_LRS'
 param vmSize string = 'Standard_B1s'
-param username string
+param username string = 'developer'
 param password string
 
 var vmName = '${namePrefix}${uniqueString(resourceGroup().id)}'
