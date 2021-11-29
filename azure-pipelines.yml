@@ -33,7 +33,8 @@ steps:
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
-      subnet='Hello'
-      subnet_id="${vnet_id}/${subnet}"
-      az deployment group create --name d2 --resource-group $(resourceGroupName) --template-file $(vmTemplateFile) --parameters location=$(location) location=$(location) password=$(VM_PASSWORD) subnetId=$(subnet_id)
+      subnet='subnet001'
+      subnet_id="${vnet_id}/subnets/${subnet}"
+      echo $subnet_id
+      az deployment group create --name d2 --resource-group $(resourceGroupName) --template-file $(vmTemplateFile) --parameters location=$(location) location=$(location) password=$(VM_PASSWORD) subnetId=$subnet_id
       
