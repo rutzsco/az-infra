@@ -7,7 +7,7 @@ param vmSize string = 'Standard_B1s'
 param username string = 'developer'
 param password string
 
-var vmName = 'Ubuntu_${location}_${nameSuffix}'
+var vmName = 'Ubuntu${location}${nameSuffix}'
 
 // Bring in the nic
 module nic 'vm-small-nic.bicep' = {
