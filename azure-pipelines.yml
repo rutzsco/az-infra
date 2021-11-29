@@ -1,0 +1,25 @@
+trigger:
+- main
+
+name: Deploy Network
+
+variables:
+  vmImageName: 'ubuntu-latest'
+
+  azureServiceConnection: 'Demo Account'
+  resourceGroupName: 'rutzsco-infra-network-eastus'
+  location: 'eastus'
+  templateFile: 'Infrastructure/vnet.bicep'
+pool:
+  vmImage: $(vmImageName)
+
+steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: $(azureServiceConnection)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az --version
+      az group create --name $(resourceGroupName) --location $(location)
+      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters region=$(location)
