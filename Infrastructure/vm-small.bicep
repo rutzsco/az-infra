@@ -1,4 +1,4 @@
-param namePrefix string = 'unique'
+param nameSuffix string = 'VM1'
 param location string = resourceGroup().location
 param subnetId string
 param ubuntuOsVersion string = '18.04-LTS'
@@ -7,7 +7,7 @@ param vmSize string = 'Standard_B1s'
 param username string = 'developer'
 param password string
 
-var vmName = '${namePrefix}${uniqueString(resourceGroup().id)}'
+var vmName = 'Ubuntu_${location}_${nameSuffix}'
 
 // Bring in the nic
 module nic 'vm-small-nic.bicep' = {
@@ -58,4 +58,4 @@ resource vm_small 'Microsoft.Compute/virtualMachines@2019-07-01' = {
   }
 }
 
-output id string = vm_small.id
+output vm_id string = vm_small.id
