@@ -1,9 +1,10 @@
+param suffix string = '001'
 param region string = 'eastus'
 param owner string = 'scrutz@microsoft.com'
 param costCenter string = 'rutzsco-core-infra'
 param addressPrefix string = '10.0.0.0/15'
 
-var vnetName = 'vnet-${region}'
+var vnetName = 'vnet-${region}-${suffix}'
 
 resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = {
   name: vnetName
