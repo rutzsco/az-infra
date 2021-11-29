@@ -10,7 +10,7 @@ variables:
   resourceGroupName: 'rutzsco-infra-network-eastus'
   location: 'eastus'
   templateFile: 'Infrastructure/vnet.bicep'
-  vmTemplateFile: 'Infrastructure/vnet.bicep'
+  vmTemplateFile: 'Infrastructure/vm-small.bicep'
 
 pool:
   vmImage: $(vmImageName)
@@ -25,11 +25,4 @@ steps:
       az --version
       az group create --name $(resourceGroupName) --location $(location)
       az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters region=$(location)
-
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: $(azureServiceConnection)
-    scriptType: bash
-    scriptLocation: inlineScript
-    inlineScript: |
       az deployment group create --resource-group $(resourceGroupName) --template-file $(vmTemplateFile) --parameters region=$(location)
