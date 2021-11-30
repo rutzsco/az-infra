@@ -11,7 +11,7 @@ variables:
   vmResourceGroupName: 'rutzsco-infra-vm-eastus'
   location: 'eastus'
   templateFile: 'Infrastructure/vnet.bicep'
-  vmTemplateFile: 'Infrastructure/vm-small.bicep'
+  vmTemplateFile: 'Infrastructure/vm-windows.bicep'
 
 pool:
   vmImage: $(vmImageName)
