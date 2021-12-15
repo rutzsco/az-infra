@@ -6,6 +6,9 @@ param vmSize string = 'Standard_B1s'
 param username string = 'developer'
 param password string
 
+param frontendRG string
+param frontendRG string
+
 var vmName = 'WIN11${location}${nameSuffix}'
 
 // Bring in the nic
