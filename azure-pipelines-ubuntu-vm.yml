@@ -6,7 +6,7 @@ name: Deploy Network
 variables:
   vmImageName: 'ubuntu-latest'
 
-  azureServiceConnection: 'Demo Account'
+  azureServiceConnection: 'Demo Account RutzscoDev'
   resourceGroupName: 'rutzsco-infra-network-eastus'
   vmResourceGroupName: 'rutzsco-infra-vm-eastus'
   location: 'eastus'
