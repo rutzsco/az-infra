@@ -4,6 +4,18 @@ param subnetId string
 param privateIPAddress string =  '10.0.0.4'
 
 var vmName = '${namePrefix}${uniqueString(resourceGroup().id)}'
+var pipName = '${vmName}-pip'
+resource pip 'Microsoft.Network/publicIPAddresses@2020-08-01' = {
+  name: pipName
+  location: location
+  sku: {
+    name: 'Basic'
+  }
+  properties: {
+    publicIPAllocationMethod: 'Static'
+    publicIPAddressVersion: 'IPv4'
+  }
+}
 
 resource nic_vm 'Microsoft.Network/networkInterfaces@2020-08-01' = {
   name: vmName
@@ -20,6 +32,9 @@ resource nic_vm 'Microsoft.Network/networkInterfaces@2020-08-01' = {
           }
           primary: true
           privateIPAddressVersion: 'IPv4'
+          publicIPAddress: {
+            id: pip.id
+          }
         }
       }
     ]
