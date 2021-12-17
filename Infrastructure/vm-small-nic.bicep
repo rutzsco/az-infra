@@ -28,13 +28,10 @@ resource nic_vm 'Microsoft.Network/networkInterfaces@2020-08-01' = {
       {
         name: 'ipconfig1'
         properties: {
-          privateIPAddress: privateIPAddress
-          privateIPAllocationMethod: 'Dynamic'
           subnet: {
             id: subnetId
           }
           primary: true
-          privateIPAddressVersion: 'IPv4'
           publicIPAddress: {
             id: pip.id
           }
