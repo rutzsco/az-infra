@@ -13,7 +13,7 @@ resource pip 'Microsoft.Network/publicIPAddresses@2020-08-01' = {
     name: 'Basic'
   }
   properties: {
-    publicIPAllocationMethod: 'Static'
+    publicIPAllocationMethod: 'Dynamic'
     publicIPAddressVersion: 'IPv4'
     idleTimeoutInMinutes: 4
   }
