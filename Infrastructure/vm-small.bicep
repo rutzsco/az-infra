@@ -60,9 +60,6 @@ resource nic_vm 'Microsoft.Network/networkInterfaces@2020-08-01' = {
 resource vm_small 'Microsoft.Compute/virtualMachines@2019-07-01' = {
   name: vmName
   location: location
-  zones: [
-    '1'
-  ]
   properties: {
     hardwareProfile: {
       vmSize: vmSize
