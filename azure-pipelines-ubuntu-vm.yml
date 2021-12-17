@@ -30,6 +30,6 @@ steps:
       subnet_id="${vnet_id}/subnets/subnet001"
       echo $subnet_id
       az group create --name $(vmResourceGroupName) --location $(location)
-      az deployment group create --resource-group $(vmResourceGroupName) --template-file $(vmTemplateFile) --parameters location=$(location) password="$(VM_SSH_PUB_KEY)" subnetId=$subnet_id
+      az deployment group create --resource-group $(vmResourceGroupName) --template-file $(vmTemplateFile) --parameters location=$(location) password='$(VM_SSH_PUB_KEY)' subnetId=$subnet_id
       
       
