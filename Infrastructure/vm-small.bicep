@@ -10,6 +10,7 @@ param username string = 'developer'
 param password string
 
 var vmName = 'Ubuntu${location}${nameSuffix}'
+var pipName = '${vmName}-pip'
 var linuxConfiguration = {
   disablePasswordAuthentication: true
   ssh: {
@@ -21,12 +22,40 @@ var linuxConfiguration = {
     ]
   }
 }
-// Bring in the nic
-module nic 'vm-small-nic.bicep' = {
-  name: '${vmName}-nic'
-  params: {
-    namePrefix: '${vmName}-hdd'
-    subnetId: subnetId
+resource pip 'Microsoft.Network/publicIPAddresses@2020-08-01' = {
+  name: pipName
+  location: location
+  sku: {
+    name: 'Standard'
+  }
+  properties: {
+    publicIPAllocationMethod: 'Dynamic'
+    publicIPAddressVersion: 'IPv4'
+    idleTimeoutInMinutes: 4
+  }
+  zones: [
+    '1'
+  ]
+}
+
+resource nic_vm 'Microsoft.Network/networkInterfaces@2020-08-01' = {
+  name: vmName
+  location: location
+  properties: {
+    ipConfigurations: [
+      {
+        name: 'ipconfig1'
+        properties: {
+          subnet: {
+            id: subnetId
+          }
+          privateIPAllocationMethod: 'Dynamic'
+          publicIPAddress: {
+            id: pip.id
+          }
+        }
+      }
+    ]
   }
 }
 
@@ -64,7 +93,7 @@ resource vm_small 'Microsoft.Compute/virtualMachines@2019-07-01' = {
     networkProfile: {
       networkInterfaces: [
         {
-          id: nic.outputs.nicId
+          id: nic_vm.id
         }
       ]
     }
