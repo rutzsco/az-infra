@@ -5,6 +5,9 @@ param ubuntuOsVersion string = '18.04-LTS'
 param osDiskType string = 'Standard_LRS'
 param vmSize string = 'Standard_B1s'
 param username string = 'developer'
+
+@description('SSH Key or password for the Virtual Machine. SSH key is recommended.')
+@secure()
 param password string
 
 var vmName = 'Ubuntu${location}${nameSuffix}'
