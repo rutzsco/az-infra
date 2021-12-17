@@ -8,7 +8,17 @@ param username string = 'developer'
 param password string
 
 var vmName = 'Ubuntu${location}${nameSuffix}'
-
+var linuxConfiguration = {
+  disablePasswordAuthentication: true
+  ssh: {
+    publicKeys: [
+      {
+        path: '/home/${username}/.ssh/authorized_keys'
+        keyData: password
+      }
+    ]
+  }
+}
 // Bring in the nic
 module nic 'vm-small-nic.bicep' = {
   name: '${vmName}-nic'
@@ -47,6 +57,7 @@ resource vm_small 'Microsoft.Compute/virtualMachines@2019-07-01' = {
       computerName: vmName
       adminUsername: username
       adminPassword: password
+      linuxConfiguration: linuxConfiguration
     }
     networkProfile: {
       networkInterfaces: [
