@@ -5,6 +5,7 @@ param privateIPAddress string =  '10.0.0.4'
 
 var vmName = '${namePrefix}${uniqueString(resourceGroup().id)}'
 var pipName = '${vmName}-pip'
+
 resource pip 'Microsoft.Network/publicIPAddresses@2020-08-01' = {
   name: pipName
   location: location
@@ -14,6 +15,7 @@ resource pip 'Microsoft.Network/publicIPAddresses@2020-08-01' = {
   properties: {
     publicIPAllocationMethod: 'Static'
     publicIPAddressVersion: 'IPv4'
+    idleTimeoutInMinutes: 4
   }
   zones: [
     '1'
@@ -31,18 +33,13 @@ resource nic_vm 'Microsoft.Network/networkInterfaces@2020-08-01' = {
           subnet: {
             id: subnetId
           }
-          primary: true
+          privateIPAllocationMethod: 'Dynamic'
           publicIPAddress: {
             id: pip.id
           }
         }
       }
     ]
-    dnsSettings: {
-      dnsServers: []
-    }
-    enableAcceleratedNetworking: false
-    enableIPForwarding: false
   }
 }
 
