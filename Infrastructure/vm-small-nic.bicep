@@ -10,16 +10,13 @@ resource pip 'Microsoft.Network/publicIPAddresses@2020-08-01' = {
   name: pipName
   location: location
   sku: {
-    name: 'Standard'
+    name: 'Basic'
   }
   properties: {
     publicIPAllocationMethod: 'Static'
     publicIPAddressVersion: 'IPv4'
     idleTimeoutInMinutes: 4
   }
-  zones: [
-    '1'
-  ]
 }
 
 resource nic_vm 'Microsoft.Network/networkInterfaces@2020-08-01' = {

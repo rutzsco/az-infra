@@ -33,9 +33,6 @@ resource pip 'Microsoft.Network/publicIPAddresses@2020-08-01' = {
     publicIPAddressVersion: 'IPv4'
     idleTimeoutInMinutes: 4
   }
-  zones: [
-    '1'
-  ]
 }
 
 resource nic_vm 'Microsoft.Network/networkInterfaces@2020-08-01' = {
