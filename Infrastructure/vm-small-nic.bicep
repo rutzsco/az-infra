@@ -9,7 +9,7 @@ resource pip 'Microsoft.Network/publicIPAddresses@2020-08-01' = {
   name: pipName
   location: location
   sku: {
-    name: 'Basic'
+    name: 'Standard'
   }
   properties: {
     publicIPAllocationMethod: 'Static'
