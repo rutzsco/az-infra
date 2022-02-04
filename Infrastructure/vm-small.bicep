@@ -3,7 +3,7 @@ param location string = resourceGroup().location
 param subnetId string
 param ubuntuOsVersion string = '18.04-LTS'
 param osDiskType string = 'Standard_LRS'
-param vmSize string = 'Standard_B1s'
+param vmSize string = 'Standard_D2s_v3'
 param username string = 'developer'
 
 @description('SSH Key or password for the Virtual Machine. SSH key is recommended.')
