@@ -1,0 +1,35 @@
+trigger:
+- main
+
+name: Deploy Network
+
+variables:
+  vmImageName: 'ubuntu-latest'
+
+  azureServiceConnection: 'Demo Account RutzscoDev'
+  resourceGroupName: 'rutzsco-infra-network-eastus'
+  vmResourceGroupName: 'rutzsco-infra-vm-eastus'
+  location: 'eastus'
+  templateFile: 'Infrastructure/vnet.bicep'
+  vmTemplateFile: 'Infrastructure/vm-iotedge.bicep'
+
+pool:
+  vmImage: $(vmImageName)
+
+steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: $(azureServiceConnection)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az group create --name $(resourceGroupName) --location $(location)  
+      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters region=$(location) > outputs.json
+      vnet_id=$(jq -re '.properties.outputs.vnet_id.value' outputs.json)
+      echo $vnet_id
+      subnet_id="${vnet_id}/subnets/subnet001"
+      echo $subnet_id
+      az group create --name $(vmResourceGroupName) --location $(location)
+      az deployment group create --resource-group $(vmResourceGroupName) --template-file $(vmTemplateFile) --parameters vmSize=Standard_B1s nameSuffix=VMEDGESIM1 location=$(location) password='$(VM_SSH_PUB_KEY)' subnetId=$subnet_id
+      
+      
