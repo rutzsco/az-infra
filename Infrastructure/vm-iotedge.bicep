@@ -83,7 +83,7 @@ resource vm_small 'Microsoft.Compute/virtualMachines@2019-07-01' = {
       computerName: vmName
       adminUsername: username
       adminPassword: password
-      linuxConfiguration: linuxConfiguration,
+      linuxConfiguration: linuxConfiguration
       customData: customData64
     }
     networkProfile: {
